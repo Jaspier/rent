@@ -1,12 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  SafeAreaView,
-  Platform,
-} from "react-native";
+import { Text, View, Image } from "react-native";
 import styles from "./styles";
 
 const PostItems = () => {
