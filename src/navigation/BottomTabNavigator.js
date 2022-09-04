@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
+import Listing from "../screens/Listing";
 
 const BottomTabNav = () => {
   const Tab = createBottomTabNavigator();
@@ -30,7 +31,7 @@ const BottomTabNav = () => {
       />
       <Tab.Screen
         name={"Listing"}
-        component={PostDetails}
+        component={Listing}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -39,6 +40,7 @@ const BottomTabNav = () => {
               color={colors.secondary}
             />
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
