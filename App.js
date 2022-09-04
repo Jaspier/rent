@@ -1,13 +1,14 @@
 import { StyleSheet, SafeAreaView, Platform } from "react-native";
-import PostItems from "./src/components/postItems";
-import HeaderForMobile from "./src/components/headerForMobile";
 import { colors } from "./src/modal/color";
+import { StatusBar } from "expo-status-bar";
+import Route from "./src/navigation/Router";
+import "react-native-gesture-handler";
 
 export default function App() {
   return (
     <SafeAreaView style={styles.SafeAreaViewForDroid}>
-      <HeaderForMobile />
-      <PostItems />
+      <StatusBar barStyle="dark-content" backgroundColor="#90EE90" />
+      <Route />
     </SafeAreaView>
   );
 }
