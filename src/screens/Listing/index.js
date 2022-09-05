@@ -88,7 +88,12 @@ const Listing = () => {
             </ScrollView>
           </View>
         </View>
-        <View style={styles.catStyle}>
+        <Pressable
+          style={styles.catStyle}
+          onPress={() => {
+            navigation.navigate("SelectCategory");
+          }}
+        >
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <MaterialIcons
               name="settings-input-component"
@@ -102,7 +107,7 @@ const Listing = () => {
             </Text>
           </View>
           <AntDesign name="right" size={22} color={colors.secondary} />
-        </View>
+        </Pressable>
         <View style={styles.catStyle}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <MaterialCommunityIcons
