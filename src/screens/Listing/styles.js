@@ -10,6 +10,8 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 10,
     marginBottom: 20,
+    flexDirection: "row",
+    alignItems: "center",
   },
   catStyle: {
     display: "flex",

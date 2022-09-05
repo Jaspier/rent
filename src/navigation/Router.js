@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { colors } from "../modal/color";
 import PostDetails from "../screens/postDetails";
+import SelectPhotosScreen from "../screens/selectPhotos";
 import BottomTabNav from "./BottomTabNavigator";
 
 const Route = () => {
@@ -24,6 +25,11 @@ const Route = () => {
         <Stack.Screen
           name="PostDetails"
           component={PostDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SelectPhoto"
+          component={SelectPhotosScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
