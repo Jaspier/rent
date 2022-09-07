@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { colors } from "../modal/color";
 import PostDetails from "../screens/postDetails";
 import SelectCategoryScreen from "../screens/selectCategory";
+import SelectLocationScreen from "../screens/selectLocation";
 import SelectPhotosScreen from "../screens/selectPhotos";
 import BottomTabNav from "./BottomTabNavigator";
 
@@ -36,6 +37,11 @@ const Route = () => {
         <Stack.Screen
           name="SelectCategory"
           component={SelectCategoryScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SelectLocation"
+          component={SelectLocationScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

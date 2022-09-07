@@ -21,6 +21,11 @@ import React, { useEffect, useState } from "react";
 const Listing = () => {
   const navigation = useNavigation();
   const [category, setCategory] = useState({catID: 0, catName: "Category"});
+  const [location, setLocation] = useState({locID: 0, locName: "Location"});
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [rentValue, setRentValue] = useState("");
+
   Auth.currentAuthenticatedUser()
     .then(user => {
       // console.log(user.attributes.email);
@@ -42,7 +47,10 @@ const Listing = () => {
         setImageData(route.params.imageData);
       } else if (route.params.catID !== undefined) {
         setCategory(route.params)
+      } else if (route.params.locID !== undefined) {
+        setLocation(route.params)
       }
+      
     }
   });
 
@@ -111,7 +119,9 @@ const Listing = () => {
           </View>
           <AntDesign name="right" size={22} color={colors.secondary} />
         </Pressable>
-        <View style={styles.catStyle}>
+        <Pressable onPress={() => {
+          navigation.navigate("SelectLocation")
+        }} style={styles.catStyle}>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <MaterialCommunityIcons
               name="map-marker"
@@ -121,14 +131,16 @@ const Listing = () => {
             <Text
               style={{ fontSize: 16, color: colors.secondary, marginLeft: 5 }}
             >
-              Location
+              {location.locName}
             </Text>
           </View>
           <AntDesign name="right" size={22} color={colors.secondary} />
-        </View>
+        </Pressable>
         <View style={styles.inputTextStyle}>
           <MaterialIcons name="title" size={24} color={colors.secondary} />
-          <TextInput placeholder="Ad Title" />
+          <TextInput placeholder="Ad Title" style={{width: "90%"}} onChangeText={(text) => {
+            setTitle(text)
+          }} />
         </View>
         <View style={styles.inputTextStyle}>
           <MaterialIcons
@@ -138,12 +150,20 @@ const Listing = () => {
           />
           <TextInput
             placeholder="Write a description"
-            style={{ marginLeft: 5 }}
+            style={{ marginLeft: 5, width: "90%" }}
+            onChangeText={(text) => {
+              setDescription(text)
+            }}
+            multiline={true}
+            numberOfLines={3}
           />
         </View>
         <View style={[styles.inputTextStyle, { width: "50%" }]}>
           <Foundation name="pound" size={24} color={colors.secondary} />
-          <TextInput placeholder="Add a value" style={{ marginLeft: 5 }} />
+          <TextInput placeholder="Add a value" style={{ marginLeft: 5, width: "90%" }} onChangeText={(text) => {
+            setRentValue(text)
+          }}
+          keyboardType="numeric" />
         </View>
         <View
           style={{
