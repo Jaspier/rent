@@ -7,6 +7,7 @@ import {
   Alert,
   ScrollView,
   Pressable,
+  TouchableOpacity,
 } from "react-native";
 import { Ionicons, MaterialIcons, Entypo, AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -76,7 +77,7 @@ const SelectCategoryScreen = () => {
     <ScrollView>
       <Text style={{ fontSize: 20, margin: 20 }}>Choose a Category</Text>
       {catState.names.map((item, index) => (
-        <Pressable
+        <TouchableOpacity
           key={item.id}
           style={{
             padding: 15,
@@ -97,7 +98,7 @@ const SelectCategoryScreen = () => {
         >
           {item.fullIcon}
           <Text>{item.name}</Text>
-        </Pressable>
+        </TouchableOpacity>
       ))}
     </ScrollView>
   );

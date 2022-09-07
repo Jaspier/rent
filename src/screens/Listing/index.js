@@ -20,6 +20,7 @@ import React, { useEffect, useState } from "react";
 
 const Listing = () => {
   const navigation = useNavigation();
+  const [category, setCategory] = useState({catID: 0, catName: "Category"});
   Auth.currentAuthenticatedUser()
     .then(user => {
       // console.log(user.attributes.email);
@@ -39,6 +40,8 @@ const Listing = () => {
       if (route.params.imageData !== undefined) {
         console.log(route.params.imageData);
         setImageData(route.params.imageData);
+      } else if (route.params.catID !== undefined) {
+        setCategory(route.params)
       }
     }
   });
@@ -103,7 +106,7 @@ const Listing = () => {
             <Text
               style={{ fontSize: 16, color: colors.secondary, marginLeft: 5 }}
             >
-              Category
+              {category.catName}
             </Text>
           </View>
           <AntDesign name="right" size={22} color={colors.secondary} />
