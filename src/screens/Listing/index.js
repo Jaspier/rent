@@ -8,7 +8,7 @@ import {
 	TouchableOpacity,
 } from "react-native";
 import { withAuthenticator } from "aws-amplify-react-native";
-import { Auth } from "aws-amplify";
+import { Auth, Storage } from "aws-amplify";
 import { AntDesign } from "@expo/vector-icons";
 import { colors } from "../../modal/color";
 import styles from "./styles";
@@ -70,7 +70,7 @@ const Listing = () => {
 					urlParts.length > 1 ? urlParts[urlParts.length - 1] : "jpeg";
 				const key = `${uuidv4()}.${extension}`;
 				imageAllUrl.push({ imageUri: key });
-				console.log(imageAllUrl);
+				await Storage.put(key, blob);
 			});
 	};
 
