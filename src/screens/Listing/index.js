@@ -6,6 +6,7 @@ import {
 	ScrollView,
 	Image,
 	TouchableOpacity,
+	Alert,
 } from "react-native";
 import { withAuthenticator } from "aws-amplify-react-native";
 import { Auth, Storage, API, graphqlOperation } from "aws-amplify";
@@ -30,6 +31,22 @@ const Listing = () => {
 	const [description, setDescription] = useState("");
 	const [rentValue, setRentValue] = useState("");
 	const [userID, setUserID] = useState("");
+	const [postSuccess, setPostSuccess] = useState("");
+	const [postProcessing, setPostProcessing] = useState(false);
+
+	useEffect(() => {
+		if (postSuccess !== "") {
+			setPostProcessing(false);
+			Alert.alert("Success", postSuccess, [
+				{
+					text: "OK",
+					onPress: () => {
+						navigation.navigate("Home", { screen: "Explore" });
+					},
+				},
+			]);
+		}
+	}, [postSuccess]);
 
 	Auth.currentAuthenticatedUser()
 		.then((user) => {
@@ -62,6 +79,7 @@ const Listing = () => {
 
 	const imageAllUrl = [];
 	const storeToDB = async () => {
+		setPostProcessing(true);
 		imageData &&
 			imageData.map(async (component, index) => {
 				const imageUrl = component.uri;
@@ -86,12 +104,13 @@ const Listing = () => {
 						userID,
 						commonID: "1",
 					};
-					console.log(postData);
 					await API.graphql({
 						query: createListing,
 						variables: { input: postData },
 						authMode: "AMAZON_COGNITO_USER_POOLS",
 					});
+					setPostProcessing(false);
+					setPostSuccess("Your AD has published successfully.");
 				}
 			});
 	};
@@ -236,7 +255,7 @@ const Listing = () => {
 							fontWeight: "bold",
 						}}
 					>
-						POST AD
+						{postProcessing ? "Processing..." : "POST AD"}
 					</Text>
 				</TouchableOpacity>
 			</View>
