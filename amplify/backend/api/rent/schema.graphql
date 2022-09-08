@@ -1,27 +1,32 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
-
-type Listing 
-@model 
-@auth(
-  rules: [
-    {allow:owner}
-    {allow:public, operations:[read], provider: iam}
-    {allow:private, provider: userPools}
-  ]
-) {
-  id: ID!
-  title: String!
-  categoryName: String
-  categoryID: String
-  description: String
-  images: String
-  locationID: String
-  locationName: String
-  userID: ID
-  commonID: String @index(name:"listingByCreatedAt" sortKeyFields: ["createdAt"] queryField: "getListingByCreatedAt")
-  createdAt: AWSDateTime
+input AMPLIFY {
+	globalAuthRule: AuthRule = { allow: public }
+} # FOR TESTING ONLY!
+type Listing
+	@model
+	@auth(
+		rules: [
+			{ allow: owner }
+			{ allow: public, operations: [read], provider: iam }
+			{ allow: private, provider: userPools }
+		]
+	) {
+	id: ID!
+	title: String!
+	categoryName: String
+	categoryID: String
+	description: String
+	images: String
+	locationID: String
+	locationName: String
+	rentValue: String
+	userID: ID
+	commonID: String
+		@index(
+			name: "listingByCreatedAt"
+			sortKeyFields: ["createdAt"]
+			queryField: "getListingByCreatedAt"
+		)
+	createdAt: AWSDateTime
 }
-
-

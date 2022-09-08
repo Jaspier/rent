@@ -8,7 +8,7 @@ import {
 	TouchableOpacity,
 } from "react-native";
 import { withAuthenticator } from "aws-amplify-react-native";
-import { Auth, Storage } from "aws-amplify";
+import { Auth, Storage, API, graphqlOperation } from "aws-amplify";
 import { AntDesign } from "@expo/vector-icons";
 import { colors } from "../../modal/color";
 import styles from "./styles";
@@ -20,6 +20,7 @@ import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
+import { createListing } from "../../graphql/mutations";
 
 const Listing = () => {
 	const navigation = useNavigation();
@@ -28,10 +29,12 @@ const Listing = () => {
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [rentValue, setRentValue] = useState("");
+	const [userID, setUserID] = useState("");
 
 	Auth.currentAuthenticatedUser()
 		.then((user) => {
-			// console.log(user.attributes.email);
+			// console.log(user.attributes.sub);
+			setUserID(user.attributes.sub);
 		})
 		.catch((err) => {
 			console.log(err);
@@ -46,7 +49,6 @@ const Listing = () => {
 			console.log("There is no data in route");
 		} else {
 			if (route.params.imageData !== undefined) {
-				console.log(route.params.imageData);
 				setImageData(route.params.imageData);
 			} else if (route.params.catID !== undefined) {
 				setCategory(route.params);
@@ -71,6 +73,26 @@ const Listing = () => {
 				const key = `${uuidv4()}.${extension}`;
 				imageAllUrl.push({ imageUri: key });
 				await Storage.put(key, blob);
+				if (imageData.length == index + 1) {
+					const postData = {
+						title,
+						categoryName: category.catName,
+						categoryID: category.catID,
+						description,
+						images: JSON.stringify(imageAllUrl),
+						locationName: location.locName,
+						locationID: location.locID,
+						rentValue,
+						userID,
+						commonID: "1",
+					};
+					console.log(postData);
+					await API.graphql({
+						query: createListing,
+						variables: { input: postData },
+						authMode: "AMAZON_COGNITO_USER_POOLS",
+					});
+				}
 			});
 	};
 
