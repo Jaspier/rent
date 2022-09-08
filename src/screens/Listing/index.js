@@ -31,6 +31,7 @@ const Listing = () => {
 	const [description, setDescription] = useState("");
 	const [rentValue, setRentValue] = useState("");
 	const [userID, setUserID] = useState("");
+	const [userEmail, setUserEmail] = useState("");
 	const [postSuccess, setPostSuccess] = useState("");
 	const [postProcessing, setPostProcessing] = useState(false);
 
@@ -52,6 +53,7 @@ const Listing = () => {
 		.then((user) => {
 			// console.log(user.attributes.sub);
 			setUserID(user.attributes.sub);
+			setUserEmail(user.attributes.email);
 		})
 		.catch((err) => {
 			console.log(err);
@@ -100,6 +102,7 @@ const Listing = () => {
 						images: JSON.stringify(imageAllUrl),
 						locationName: location.locName,
 						locationID: location.locID,
+						owner: userEmail,
 						rentValue,
 						userID,
 						commonID: "1",

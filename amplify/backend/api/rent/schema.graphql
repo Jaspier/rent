@@ -13,8 +13,7 @@ type Listing
 			{ allow: public, provider: iam, operations: [read] }
 			{ allow: private, provider: userPools }
 		]
-	)
-	@searchable {
+	) {
 	id: ID!
 	title: String!
 	categoryName: String

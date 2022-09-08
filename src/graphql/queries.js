@@ -85,39 +85,3 @@ export const getListingByCreatedAt = /* GraphQL */ `
     }
   }
 `;
-export const searchListings = /* GraphQL */ `
-  query SearchListings(
-    $filter: SearchableListingFilterInput
-    $sort: SearchableListingSortInput
-    $limit: Int
-    $nextToken: String
-    $from: Int
-  ) {
-    searchListings(
-      filter: $filter
-      sort: $sort
-      limit: $limit
-      nextToken: $nextToken
-      from: $from
-    ) {
-      items {
-        id
-        title
-        categoryName
-        categoryID
-        description
-        images
-        locationID
-        locationName
-        owner
-        rentValue
-        userID
-        commonID
-        createdAt
-        updatedAt
-      }
-      nextToken
-      total
-    }
-  }
-`;
