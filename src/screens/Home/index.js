@@ -3,6 +3,7 @@ import PostItems from "../../components/postItems";
 import HeaderForMobile from "../../components/headerForMobile";
 import { getListingByCreatedAt } from "../../graphql/queries";
 import { API } from "aws-amplify";
+import { FlatList } from "react-native";
 
 const Home = () => {
 	const [newItems, setNewItems] = useState([]);
@@ -26,7 +27,10 @@ const Home = () => {
 	return (
 		<>
 			<HeaderForMobile />
-			<PostItems />
+			<FlatList
+				data={newItems}
+				renderItem={({ item }) => <PostItems post={item} />}
+			/>
 		</>
 	);
 };
