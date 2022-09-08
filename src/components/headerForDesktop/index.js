@@ -4,7 +4,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../../modal/color";
 import styles from "./styles.js";
 
-const HeaderForMobile = () => {
+const HeaderForDesktop = () => {
 	const windowWidth = Number(Dimensions.get("window").width);
 
 	return (
@@ -12,7 +12,7 @@ const HeaderForMobile = () => {
 			<View
 				style={[
 					styles.headerWrap,
-					{ display: windowWidth > 800 ? "none" : "flex" },
+					{ display: windowWidth > 800 ? "flex" : "none" },
 				]}
 			>
 				<View style={styles.searchByTextWrap}>
@@ -43,4 +43,4 @@ const HeaderForMobile = () => {
 		</>
 	);
 };
-export default HeaderForMobile;
+export default HeaderForDesktop;

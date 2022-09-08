@@ -3,7 +3,9 @@ import PostItems from "../../components/postItems";
 import HeaderForMobile from "../../components/headerForMobile";
 import { getListingByCreatedAt } from "../../graphql/queries";
 import { API } from "aws-amplify";
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
+import HeaderForDesktop from "../../components/headerForDesktop";
+import { colors } from "../../modal/color";
 
 const Home = () => {
 	const [newItems, setNewItems] = useState([]);
@@ -25,13 +27,14 @@ const Home = () => {
 	});
 
 	return (
-		<>
+		<View style={{ backgroundColor: colors.background }}>
 			<HeaderForMobile />
+			<HeaderForDesktop />
 			<FlatList
 				data={newItems}
 				renderItem={({ item }) => <PostItems post={item} />}
 			/>
-		</>
+		</View>
 	);
 };
 
