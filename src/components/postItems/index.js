@@ -10,7 +10,9 @@ const PostItems = (props) => {
 	return (
 		<Pressable
 			onPress={() => {
-				navigation.navigate("PostDetails");
+				navigation.navigate("PostDetails", {
+					postInfo: post,
+				});
 			}}
 			style={styles.container}
 		>
