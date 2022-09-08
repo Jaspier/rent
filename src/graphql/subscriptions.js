@@ -2,8 +2,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateListing = /* GraphQL */ `
-  subscription OnCreateListing($owner: String) {
-    onCreateListing(owner: $owner) {
+  subscription OnCreateListing {
+    onCreateListing {
       id
       title
       categoryName
@@ -12,18 +12,18 @@ export const onCreateListing = /* GraphQL */ `
       images
       locationID
       locationName
+      owner
       rentValue
       userID
       commonID
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onUpdateListing = /* GraphQL */ `
-  subscription OnUpdateListing($owner: String) {
-    onUpdateListing(owner: $owner) {
+  subscription OnUpdateListing {
+    onUpdateListing {
       id
       title
       categoryName
@@ -32,18 +32,18 @@ export const onUpdateListing = /* GraphQL */ `
       images
       locationID
       locationName
+      owner
       rentValue
       userID
       commonID
       createdAt
       updatedAt
-      owner
     }
   }
 `;
 export const onDeleteListing = /* GraphQL */ `
-  subscription OnDeleteListing($owner: String) {
-    onDeleteListing(owner: $owner) {
+  subscription OnDeleteListing {
+    onDeleteListing {
       id
       title
       categoryName
@@ -52,12 +52,12 @@ export const onDeleteListing = /* GraphQL */ `
       images
       locationID
       locationName
+      owner
       rentValue
       userID
       commonID
       createdAt
       updatedAt
-      owner
     }
   }
 `;
