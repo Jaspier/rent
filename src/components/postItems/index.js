@@ -1,10 +1,12 @@
 import { Text, View, Image, Pressable } from "react-native";
 import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
 
 const PostItems = (props) => {
 	const navigation = useNavigation();
 	const post = props.post;
+	const [images, setImages] = useState(JSON.parse(post.images));
 	return (
 		<Pressable
 			onPress={() => {
@@ -14,7 +16,9 @@ const PostItems = (props) => {
 		>
 			<View style={styles.postWrap}>
 				<Image
-					source={{ uri: "https://picsum.photos/200/300" }}
+					source={{
+						uri: `https://d24upkfrw5ljca.cloudfront.net/fit-in/400x400/public/${images[0].imageUri}`,
+					}}
 					style={styles.postImage}
 				></Image>
 				<View style={styles.postContentWrap}>
