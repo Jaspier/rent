@@ -27,6 +27,11 @@ const HeaderForDesktop = () => {
 						width: "100%",
 						justifyContent: "center",
 						alignItems: "center",
+						shadowColor: colors.black,
+						shadowOffset: { width: 0, height: 1 },
+						shadowOpacity: 0.9,
+						shadowRadius: 5,
+						elevation: 5,
 					},
 				]}
 			>

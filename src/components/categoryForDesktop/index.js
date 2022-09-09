@@ -65,7 +65,16 @@ const CategoryForDesktop = () => {
 	});
 
 	return (
-		<ScrollView>
+		<ScrollView
+			style={{
+				shadowColor: colors.black,
+				shadowOffset: { width: 0, height: 5 },
+				shadowOpacity: 0.9,
+				shadowRadius: 5,
+				elevation: 5,
+				backgroundColor: colors.primary,
+			}}
+		>
 			{/* <Text style={{ fontSize: 20, margin: 20 }}>Choose a Category</Text> */}
 			{catState.names.map((item, index) => (
 				<TouchableOpacity

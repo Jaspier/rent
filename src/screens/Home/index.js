@@ -7,6 +7,7 @@ import { FlatList, View, Text, Dimensions } from "react-native";
 import HeaderForDesktop from "../../components/headerForDesktop";
 import { colors } from "../../modal/color";
 import CategoryForDesktop from "../../components/categoryForDesktop";
+import MenuDetailsForDesktop from "../../components/menuDetailsForDesktop";
 
 const Home = () => {
 	const windowWidth = Number(Dimensions.get("window").width);
@@ -36,6 +37,7 @@ const Home = () => {
 				style={{
 					flex: 1,
 					alignItems: "center",
+					position: "relative",
 					backgroundColor: windowWidth > 800 ? colors.background : "",
 				}}
 			>
@@ -56,11 +58,12 @@ const Home = () => {
 						<CategoryForDesktop />
 					</View>
 					<FlatList
-						style={{ flexBasis: "80%" }}
+						style={{ flexBasis: "80%", marginTop: 10 }}
 						data={newItems}
 						renderItem={({ item }) => <PostItems post={item} />}
 					/>
 				</View>
+				<MenuDetailsForDesktop />
 			</View>
 		</>
 	);
