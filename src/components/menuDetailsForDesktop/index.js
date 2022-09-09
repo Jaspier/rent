@@ -17,7 +17,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { colors } from "../../modal/color";
 
-const MenuDetailsForDesktop = () => {
+const MenuDetailsForDesktop = (props) => {
 	const windowWidth = Number(Dimensions.get("window").width);
 	const navigation = useNavigation();
 
@@ -25,7 +25,11 @@ const MenuDetailsForDesktop = () => {
 		<View style={{ position: "absolute", top: -20, right: "28.55%" }}>
 			<View
 				style={{
-					display: windowWidth > 800 ? "flex" : "none",
+					display: props.menuToggle
+						? windowWidth > 800
+							? "flex"
+							: "none"
+						: "none",
 					position: "absolute",
 					width: 200,
 					backgroundColor: colors.secondary,

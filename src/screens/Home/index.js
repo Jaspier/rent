@@ -12,6 +12,7 @@ import MenuDetailsForDesktop from "../../components/menuDetailsForDesktop";
 const Home = () => {
 	const windowWidth = Number(Dimensions.get("window").width);
 	const [newItems, setNewItems] = useState([]);
+	const [menuToggle, setMenuToggle] = useState(false);
 	const fetchAll = async () => {
 		try {
 			const itemListByCommonID = await API.graphql({
@@ -32,7 +33,7 @@ const Home = () => {
 	return (
 		<>
 			<HeaderForMobile />
-			<HeaderForDesktop />
+			<HeaderForDesktop menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
 			<View
 				style={{
 					flex: 1,
@@ -63,7 +64,7 @@ const Home = () => {
 						renderItem={({ item }) => <PostItems post={item} />}
 					/>
 				</View>
-				<MenuDetailsForDesktop />
+				<MenuDetailsForDesktop menuToggle={menuToggle} />
 			</View>
 		</>
 	);

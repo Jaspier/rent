@@ -12,7 +12,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../../modal/color";
 import styles from "./styles";
 
-const HeaderForDesktop = () => {
+const HeaderForDesktop = (props) => {
 	const windowWidth = Number(Dimensions.get("window").width);
 
 	return (
@@ -137,7 +137,13 @@ const HeaderForDesktop = () => {
 							<Button title="Add Property" color={colors.darkgreen} />
 						</View>
 						<View style={{ marginLeft: 10 }}>
-							<Button title="Menu" color={colors.secondary} />
+							<Button
+								title="Menu"
+								color={colors.secondary}
+								onPress={() => {
+									props.setMenuToggle(!props.menuToggle);
+								}}
+							/>
 						</View>
 					</View>
 				</View>
