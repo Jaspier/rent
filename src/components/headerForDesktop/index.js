@@ -5,6 +5,7 @@ import {
 	Image,
 	Dimensions,
 	Pressable,
+	Button,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -120,9 +121,19 @@ const HeaderForDesktop = () => {
 							</Text>
 						</View>
 					</View>
-					<View>
-						<Text>Add Property</Text>
-						<Text>Menu</Text>
+					<View
+						style={{
+							flexDirection: "row",
+							justifyContent: "center",
+							alignItems: "center",
+						}}
+					>
+						<View>
+							<Button title="Add Property" color={colors.darkgreen} />
+						</View>
+						<View style={{ marginLeft: 10 }}>
+							<Button title="Menu" color={colors.secondary} />
+						</View>
 					</View>
 				</View>
 			</View>
