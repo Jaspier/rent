@@ -40,7 +40,6 @@ const Listing = () => {
 	const [userEmail, setUserEmail] = useState("");
 	const [postSuccess, setPostSuccess] = useState("");
 	const [postProcessing, setPostProcessing] = useState(false);
-	//const [image, setImage] = useState(null);
 
 	const pickImage = async () => {
 		// No permissions request is necessary for launching the image library
@@ -111,10 +110,16 @@ const Listing = () => {
 				const imageUrl = component.uri;
 				const response = await fetch(imageUrl);
 				const blob = await response.blob();
-				const urlParts = imageUrl.split(".");
-				const extension =
-					urlParts.length > 1 ? urlParts[urlParts.length - 1] : "jpeg";
-				const key = `${uuidv4()}.${extension}`;
+				if (Platform.OS === "web") {
+					const contentType = blob.type;
+					const extension = contentType.split("/")[1];
+					var key = `${uuidv4()}.${extension}`;
+				} else {
+					const urlParts = imageUrl.split(".");
+					const extension =
+						urlParts.length > 1 ? urlParts[urlParts.length - 1] : "jpeg";
+					var key = `${uuidv4()}.${extension}`;
+				}
 				imageAllUrl.push({ imageUri: key });
 				await Storage.put(key, blob);
 				if (imageData.length == index + 1) {
@@ -156,7 +161,7 @@ const Listing = () => {
 				style={{
 					margin: 10,
 					width: windowWidth > 800 ? "80%" : "100%",
-					padding: 50,
+					padding: windowWidth > 800 ? 50 : 10,
 				}}
 			>
 				<View>
@@ -169,8 +174,8 @@ const Listing = () => {
 								justifyContent: "center",
 								alignItems: "center",
 								marginVertical: 20,
-								height: 150,
-								width: 150,
+								height: windowWidth > 800 ? 150 : 130,
+								width: windowWidth > 800 ? 150 : 130,
 								borderWidth: 1,
 								borderStyle: "dashed",
 								borderRadius: 30,
