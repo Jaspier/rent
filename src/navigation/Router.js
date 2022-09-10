@@ -47,7 +47,24 @@ const Route = () => {
 	};
 
 	return (
-		<NavigationContainer>
+		<NavigationContainer
+			linking={{
+				prefixes: ["myapp://", "https://rent.com", "https://*.rent.com"],
+				config: {
+					screens: {
+						Home: {
+							screens: {
+								Explore: "/Explore",
+								Listing: "/Listing",
+								Chat: "/Chat",
+								Profile: "/Profile",
+							},
+						},
+						SelectLocation: "/SelectLocation",
+					},
+				},
+			}}
+		>
 			<Stack.Navigator
 				screenOptions={{
 					cardStyle: {

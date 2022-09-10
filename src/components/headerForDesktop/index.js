@@ -11,8 +11,10 @@ import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../../modal/color";
 import styles from "./styles";
+import { useNavigation } from "@react-navigation/native";
 
 const HeaderForDesktop = (props) => {
+	const navigation = useNavigation();
 	const windowWidth = Number(Dimensions.get("window").width);
 
 	return (
@@ -134,7 +136,13 @@ const HeaderForDesktop = (props) => {
 						}}
 					>
 						<View>
-							<Button title="Add Property" color={colors.darkgreen} />
+							<Button
+								onPress={() => {
+									navigation.navigate("Home", { screen: "Listing" });
+								}}
+								title="Add Property"
+								color={colors.darkgreen}
+							/>
 						</View>
 						<View style={{ marginLeft: 10 }}>
 							<Button
