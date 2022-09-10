@@ -8,6 +8,7 @@ import {
 	TouchableOpacity,
 	Alert,
 	Dimensions,
+	Platform,
 } from "react-native";
 import { withAuthenticator } from "aws-amplify-react-native";
 import { Auth, Storage, API, graphqlOperation } from "aws-amplify";
@@ -25,6 +26,7 @@ import { v4 as uuidv4 } from "uuid";
 import { createListing } from "../../graphql/mutations";
 import HeaderForDesktop from "../../components/headerForDesktop";
 import MenuDetailsForDesktop from "../../components/menuDetailsForDesktop";
+import * as ImagePicker from "expo-image-picker";
 
 const Listing = () => {
 	const windowWidth = Number(Dimensions.get("window").width);
@@ -38,6 +40,24 @@ const Listing = () => {
 	const [userEmail, setUserEmail] = useState("");
 	const [postSuccess, setPostSuccess] = useState("");
 	const [postProcessing, setPostProcessing] = useState(false);
+	//const [image, setImage] = useState(null);
+
+	const pickImage = async () => {
+		// No permissions request is necessary for launching the image library
+		let result = await ImagePicker.launchImageLibraryAsync({
+			mediaTypes: ImagePicker.MediaTypeOptions.All,
+			allowsEditing: true,
+			aspect: [4, 3],
+			quality: 1,
+			allowsMultipleSelection: true,
+		});
+
+		console.log(result);
+
+		if (!result.cancelled) {
+			setImageData(result.selected);
+		}
+	};
 
 	useEffect(() => {
 		if (postSuccess !== "") {
@@ -156,7 +176,11 @@ const Listing = () => {
 								borderRadius: 30,
 							}}
 							onPress={() => {
-								navigation.navigate("SelectPhoto");
+								if (Platform.OS === "web") {
+									pickImage();
+								} else {
+									navigation.navigate("SelectPhoto");
+								}
 							}}
 						>
 							<AntDesign name="pluscircle" size={24} color={colors.secondary} />
