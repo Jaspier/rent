@@ -1,4 +1,11 @@
-import { View, Text, Image, ScrollView, Dimensions } from "react-native";
+import {
+	View,
+	Text,
+	Image,
+	ScrollView,
+	Dimensions,
+	Pressable,
+} from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useState } from "react";
 import { colors } from "../../modal/color";
@@ -17,7 +24,7 @@ const PostDetails = () => {
 	const substrEmail = userEmail.substr(0, userEmail.indexOf("@"));
 	const [menuToggle, setMenuToggle] = useState(false);
 	return (
-		<>
+		<View style={{ flex: 1, position: "relative" }}>
 			<HeaderForDesktop menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
 			<View style={{ alignItems: "center" }}>
 				<View
@@ -144,7 +151,7 @@ const PostDetails = () => {
 						</View>
 					</View>
 					<View style={{ margin: 10 }}>
-						<Text style={{ color: colors.grey }}>
+						<Text style={{ color: colors.secondary, fontWeight: "bold" }}>
 							Preferred Meetup Location
 						</Text>
 						<Text style={{ color: colors.secondary }}>
@@ -152,19 +159,42 @@ const PostDetails = () => {
 						</Text>
 					</View>
 					<View style={{ margin: 10 }}>
-						<Text style={{ color: colors.grey }}>Description</Text>
+						<Text style={{ color: colors.secondary, fontWeight: "bold" }}>
+							Description
+						</Text>
 						<Text style={{ color: colors.secondary }}>
 							{route.params.postInfo.description}
 						</Text>
 					</View>
 				</View>
 			</View>
+			<Pressable
+				style={{
+					position: "absolute",
+					bottom: 10,
+					right: windowWidth > 800 ? "15%" : "40%",
+				}}
+			>
+				<View style={{ borderRadius: 50, overflow: "hidden" }}>
+					<Text
+						style={{
+							backgroundColor: colors.secondary,
+							paddingHorizontal: 20,
+							paddingVertical: 10,
+							color: colors.white,
+							elevation: 5,
+						}}
+					>
+						ORDER
+					</Text>
+				</View>
+			</Pressable>
 			<MenuDetailsForDesktop
 				menuToggle={menuToggle}
 				top={59}
 				right={"28.55%"}
 			/>
-		</>
+		</View>
 	);
 };
 
