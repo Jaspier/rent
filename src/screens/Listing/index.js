@@ -7,6 +7,7 @@ import {
 	Image,
 	TouchableOpacity,
 	Alert,
+	Dimensions,
 } from "react-native";
 import { withAuthenticator } from "aws-amplify-react-native";
 import { Auth, Storage, API, graphqlOperation } from "aws-amplify";
@@ -26,6 +27,7 @@ import HeaderForDesktop from "../../components/headerForDesktop";
 import MenuDetailsForDesktop from "../../components/menuDetailsForDesktop";
 
 const Listing = () => {
+	const windowWidth = Number(Dimensions.get("window").width);
 	const navigation = useNavigation();
 	const [category, setCategory] = useState({ catID: 0, catName: "Category" });
 	const [location, setLocation] = useState({ locID: 0, locName: "Location" });
@@ -130,7 +132,13 @@ const Listing = () => {
 			}}
 		>
 			<HeaderForDesktop menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
-			<ScrollView style={{ margin: 10, width: "80%", padding: 50 }}>
+			<ScrollView
+				style={{
+					margin: 10,
+					width: windowWidth > 800 ? "80%" : "100%",
+					padding: 50,
+				}}
+			>
 				<View>
 					<View>
 						<Text style={{ marginTop: 10 }}>Upload images [Max 5 photos]</Text>
