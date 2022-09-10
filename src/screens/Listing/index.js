@@ -22,6 +22,8 @@ import React, { useEffect, useState } from "react";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { createListing } from "../../graphql/mutations";
+import HeaderForDesktop from "../../components/headerForDesktop";
+import MenuDetailsForDesktop from "../../components/menuDetailsForDesktop";
 
 const Listing = () => {
 	const navigation = useNavigation();
@@ -117,152 +119,167 @@ const Listing = () => {
 				}
 			});
 	};
-
+	const [menuToggle, setMenuToggle] = useState(false);
 	return (
-		<ScrollView>
-			<View style={{ margin: 10 }}>
+		<View
+			style={{
+				flex: 1,
+				width: "100%",
+				alignItems: "center",
+				backgroundColor: colors.background,
+			}}
+		>
+			<HeaderForDesktop menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
+			<ScrollView style={{ margin: 10, width: "80%", padding: 50 }}>
 				<View>
-					<Text style={{ marginTop: 10 }}>Upload images [Max 5 photos]</Text>
+					<View>
+						<Text style={{ marginTop: 10 }}>Upload images [Max 5 photos]</Text>
+						<Pressable
+							style={{
+								backgroundColor: colors.white,
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+								marginVertical: 20,
+								height: 150,
+								width: 150,
+								borderWidth: 1,
+								borderStyle: "dashed",
+								borderRadius: 30,
+							}}
+							onPress={() => {
+								navigation.navigate("SelectPhoto");
+							}}
+						>
+							<AntDesign name="pluscircle" size={24} color={colors.secondary} />
+						</Pressable>
+						<View>
+							<ScrollView horizontal={true}>
+								{imageData &&
+									imageData.map((component, index) => (
+										<Image
+											key={component.id}
+											source={{ uri: component.uri }}
+											style={{
+												height: 100,
+												width: 100,
+												marginBottom: 20,
+												marginTop: -5,
+												marginRight: 5,
+											}}
+										/>
+									))}
+							</ScrollView>
+						</View>
+					</View>
 					<Pressable
-						style={{
-							backgroundColor: colors.white,
-							display: "flex",
-							justifyContent: "center",
-							alignItems: "center",
-							marginVertical: 20,
-							height: 150,
-							width: 150,
-							borderWidth: 1,
-							borderStyle: "dashed",
-							borderRadius: 30,
-						}}
+						style={styles.catStyle}
 						onPress={() => {
-							navigation.navigate("SelectPhoto");
+							navigation.navigate("SelectCategory");
 						}}
 					>
-						<AntDesign name="pluscircle" size={24} color={colors.secondary} />
+						<View style={{ flexDirection: "row", alignItems: "center" }}>
+							<MaterialIcons
+								name="settings-input-component"
+								size={20}
+								color={colors.secondary}
+							/>
+							<Text
+								style={{ fontSize: 16, color: colors.secondary, marginLeft: 5 }}
+							>
+								{category.catName}
+							</Text>
+						</View>
+						<AntDesign name="right" size={22} color={colors.secondary} />
 					</Pressable>
-					<View>
-						<ScrollView horizontal={true}>
-							{imageData &&
-								imageData.map((component, index) => (
-									<Image
-										key={component.id}
-										source={{ uri: component.uri }}
-										style={{
-											height: 100,
-											width: 100,
-											marginBottom: 20,
-											marginTop: -5,
-											marginRight: 5,
-										}}
-									/>
-								))}
-						</ScrollView>
-					</View>
-				</View>
-				<Pressable
-					style={styles.catStyle}
-					onPress={() => {
-						navigation.navigate("SelectCategory");
-					}}
-				>
-					<View style={{ flexDirection: "row", alignItems: "center" }}>
-						<MaterialIcons
-							name="settings-input-component"
-							size={20}
-							color={colors.secondary}
+					<Pressable
+						onPress={() => {
+							navigation.navigate("SelectLocation");
+						}}
+						style={styles.catStyle}
+					>
+						<View style={{ flexDirection: "row", alignItems: "center" }}>
+							<MaterialCommunityIcons
+								name="map-marker"
+								size={24}
+								color={colors.secondary}
+							/>
+							<Text
+								style={{ fontSize: 16, color: colors.secondary, marginLeft: 5 }}
+							>
+								{location.locName}
+							</Text>
+						</View>
+						<AntDesign name="right" size={22} color={colors.secondary} />
+					</Pressable>
+					<View style={styles.inputTextStyle}>
+						<MaterialIcons name="title" size={24} color={colors.secondary} />
+						<TextInput
+							placeholder="Ad Title"
+							style={{ width: "90%" }}
+							onChangeText={(text) => {
+								setTitle(text);
+							}}
 						/>
-						<Text
-							style={{ fontSize: 16, color: colors.secondary, marginLeft: 5 }}
-						>
-							{category.catName}
-						</Text>
 					</View>
-					<AntDesign name="right" size={22} color={colors.secondary} />
-				</Pressable>
-				<Pressable
-					onPress={() => {
-						navigation.navigate("SelectLocation");
-					}}
-					style={styles.catStyle}
-				>
-					<View style={{ flexDirection: "row", alignItems: "center" }}>
-						<MaterialCommunityIcons
-							name="map-marker"
+					<View style={styles.inputTextStyle}>
+						<MaterialIcons
+							name="description"
 							size={24}
 							color={colors.secondary}
 						/>
-						<Text
-							style={{ fontSize: 16, color: colors.secondary, marginLeft: 5 }}
-						>
-							{location.locName}
-						</Text>
+						<TextInput
+							placeholder="Write a description"
+							style={{ marginLeft: 5, width: "90%" }}
+							onChangeText={(text) => {
+								setDescription(text);
+							}}
+							multiline={true}
+							numberOfLines={3}
+						/>
 					</View>
-					<AntDesign name="right" size={22} color={colors.secondary} />
-				</Pressable>
-				<View style={styles.inputTextStyle}>
-					<MaterialIcons name="title" size={24} color={colors.secondary} />
-					<TextInput
-						placeholder="Ad Title"
-						style={{ width: "90%" }}
-						onChangeText={(text) => {
-							setTitle(text);
-						}}
-					/>
-				</View>
-				<View style={styles.inputTextStyle}>
-					<MaterialIcons
-						name="description"
-						size={24}
-						color={colors.secondary}
-					/>
-					<TextInput
-						placeholder="Write a description"
-						style={{ marginLeft: 5, width: "90%" }}
-						onChangeText={(text) => {
-							setDescription(text);
-						}}
-						multiline={true}
-						numberOfLines={3}
-					/>
-				</View>
-				<View style={[styles.inputTextStyle, { width: "50%" }]}>
-					<Foundation name="pound" size={24} color={colors.secondary} />
-					<TextInput
-						placeholder="Add a value"
-						style={{ marginLeft: 5, width: "90%" }}
-						onChangeText={(text) => {
-							setRentValue(text);
-						}}
-						keyboardType="numeric"
-					/>
-				</View>
-				<TouchableOpacity
-					onPress={() => storeToDB()}
-					style={{
-						margin: 10,
-						borderRadius: 30,
-						backgroundColor: colors.secondary,
-						alignItems: "center",
-						paddingLeft: 20,
-						// marginTop: 20,
-						elevation: 5,
-					}}
-				>
-					<Text
+					<View style={[styles.inputTextStyle, { width: "50%" }]}>
+						<Foundation name="pound" size={24} color={colors.secondary} />
+						<TextInput
+							placeholder="Add a value"
+							style={{ marginLeft: 5, width: "90%" }}
+							onChangeText={(text) => {
+								setRentValue(text);
+							}}
+							keyboardType="numeric"
+						/>
+					</View>
+					<TouchableOpacity
+						onPress={() => storeToDB()}
 						style={{
-							color: colors.white,
-							paddingVertical: 12,
-							fontSize: 14.5,
-							fontWeight: "bold",
+							margin: 10,
+							borderRadius: 30,
+							backgroundColor: colors.secondary,
+							alignItems: "center",
+							paddingLeft: 20,
+							// marginTop: 20,
+							elevation: 5,
 						}}
 					>
-						{postProcessing ? "Processing..." : "POST AD"}
-					</Text>
-				</TouchableOpacity>
-			</View>
-		</ScrollView>
+						<Text
+							style={{
+								color: colors.white,
+								paddingVertical: 12,
+								fontSize: 14.5,
+								fontWeight: "bold",
+							}}
+						>
+							{postProcessing ? "Processing..." : "POST AD"}
+						</Text>
+					</TouchableOpacity>
+				</View>
+			</ScrollView>
+			<MenuDetailsForDesktop
+				menuToggle={menuToggle}
+				top={59}
+				right={"28.55%"}
+			/>
+		</View>
 	);
 };
 

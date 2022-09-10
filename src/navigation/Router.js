@@ -1,5 +1,5 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator, TransitionSpecs } from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 import { colors } from "../modal/color";
 import PostDetails from "../screens/postDetails";
 import SelectCategoryScreen from "../screens/selectCategory";

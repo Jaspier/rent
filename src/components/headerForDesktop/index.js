@@ -7,7 +7,6 @@ import {
 	Pressable,
 	Button,
 } from "react-native";
-import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../../modal/color";
 import styles from "./styles";
