@@ -64,7 +64,11 @@ const Home = () => {
 						renderItem={({ item }) => <PostItems post={item} />}
 					/>
 				</View>
-				<MenuDetailsForDesktop menuToggle={menuToggle} />
+				<MenuDetailsForDesktop
+					menuToggle={menuToggle}
+					top={-20}
+					right={"28.55%"}
+				/>
 			</View>
 		</>
 	);

@@ -159,7 +159,11 @@ const PostDetails = () => {
 					</View>
 				</View>
 			</View>
-			<MenuDetailsForDesktop menuToggle={menuToggle} />
+			<MenuDetailsForDesktop
+				menuToggle={menuToggle}
+				top={59}
+				right={"28.55%"}
+			/>
 		</>
 	);
 };

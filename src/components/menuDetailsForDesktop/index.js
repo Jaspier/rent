@@ -22,7 +22,7 @@ const MenuDetailsForDesktop = (props) => {
 	const navigation = useNavigation();
 
 	return (
-		<View style={{ position: "absolute", top: -20, right: "28.55%" }}>
+		<View style={{ position: "absolute", top: props.top, right: props.right }}>
 			<View
 				style={{
 					display: props.menuToggle
