@@ -5,12 +5,15 @@ import {
 	ScrollView,
 	Dimensions,
 	Pressable,
+	TouchableOpacity,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import React, { useState } from "react";
 import { colors } from "../../modal/color";
 import HeaderForDesktop from "../../components/headerForDesktop";
 import MenuDetailsForDesktop from "../../components/menuDetailsForDesktop";
+import { API, Auth } from "aws-amplify";
+import { createRentOrder } from "../../graphql/mutations";
 
 const PostDetails = () => {
 	const windowWidth = Number(Dimensions.get("window").width);
@@ -20,9 +23,41 @@ const PostDetails = () => {
 	const [images, setImages] = useState(
 		JSON.parse(route.params.postInfo.images)
 	);
-	const [userEmail, setUserEmail] = useState(route.params.postInfo.owner);
-	const substrEmail = userEmail.substr(0, userEmail.indexOf("@"));
+	const [lenderUserEmail, setLenderUserEmail] = useState(
+		route.params.postInfo.owner
+	);
+	const [userEmail, setUserEmail] = useState("");
+	const substrEmail = lenderUserEmail.substr(0, lenderUserEmail.indexOf("@"));
 	const [menuToggle, setMenuToggle] = useState(false);
+	const [userID, setUserID] = useState("");
+
+	Auth.currentAuthenticatedUser()
+		.then((user) => {
+			// console.log(user.attributes.sub);
+			setUserID(user.attributes.sub);
+			setUserEmail(user.attributes.email);
+		})
+		.catch((err) => {
+			console.log(err);
+			throw err;
+		});
+
+	const orderToDB = async () => {
+		const postData = {
+			advId: route.params.postInfo.id,
+			borrowerUserId: userID,
+			lenderUserID: route.params.postInfo.userID,
+			rentValue: route.params.postInfo.rentValue,
+			borrowerEmailID: userEmail,
+			lenderEmailID: lenderUserEmail,
+			commonID: "1",
+		};
+		await API.graphql({
+			query: createRentOrder,
+			variables: { input: postData },
+			authMode: "AMAZON_COGNITO_USER_POOLS",
+		});
+	};
 	return (
 		<View style={{ flex: 1, position: "relative" }}>
 			<HeaderForDesktop menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
@@ -168,7 +203,8 @@ const PostDetails = () => {
 					</View>
 				</View>
 			</View>
-			<Pressable
+			<TouchableOpacity
+				onPress={orderToDB}
 				style={{
 					position: "absolute",
 					bottom: 10,
@@ -188,7 +224,7 @@ const PostDetails = () => {
 						ORDER
 					</Text>
 				</View>
-			</Pressable>
+			</TouchableOpacity>
 			<MenuDetailsForDesktop
 				menuToggle={menuToggle}
 				top={59}

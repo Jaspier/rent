@@ -41,7 +41,8 @@ type RentOrder
 		name: "OrderByLenderID"
 		fields: ["lenderUserID", "createdAt"]
 		queryField: "getOrderByLenderID"
-	) {
+	)
+	@auth(rules: [{ allow: owner }, { allow: private, provider: userPools }]) {
 	id: ID!
 	advId: ID!
 	borrowerUserId: ID!

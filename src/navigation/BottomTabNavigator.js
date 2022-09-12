@@ -2,7 +2,7 @@ import Home from "../screens/Home";
 import { Platform, Dimensions } from "react-native";
 import { colors } from "../modal/color";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import Listing from "../screens/Listing";
@@ -49,11 +49,15 @@ const BottomTabNav = () => {
 				}}
 			/>
 			<Tab.Screen
-				name={"Chat"}
+				name={"Journal"}
 				component={Home}
 				options={{
 					tabBarIcon: ({ color }) => (
-						<Entypo name="chat" size={25} color={colors.secondary} />
+						<FontAwesome5
+							name="journal-whills"
+							size={24}
+							color={colors.secondary}
+						/>
 					),
 				}}
 			/>
