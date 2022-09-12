@@ -13,8 +13,8 @@ const LenderBorrowerNavScreen = () => {
 		<>
 			<HeaderForDesktop menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
 			<Tab.Navigator>
-				<Tab.Screen name="BorrowerScreen" component={BorrowerScreen} />
-				<Tab.Screen name="LenderScreen" component={LenderScreen} />
+				<Tab.Screen name="Borrower" component={BorrowerScreen} />
+				<Tab.Screen name="Lender" component={LenderScreen} />
 			</Tab.Navigator>
 			<MenuDetailsForDesktop
 				menuToggle={menuToggle}

@@ -33,6 +33,9 @@ const MenuDetailsForDesktop = (props) => {
 			>
 				<View>
 					<Pressable
+						onPress={() => {
+							navigation.navigate("Home", { screen: "Journal" });
+						}}
 						style={{
 							flexDirection: "row",
 							justifyContent: "flex-start",
