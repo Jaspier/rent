@@ -6,6 +6,7 @@ import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 import Listing from "../screens/Listing";
+import LenderBorrowerNavScreen from "./LenderBorrowerNav";
 
 const BottomTabNav = () => {
 	const windowWidth = Number(Dimensions.get("window").width);
@@ -50,7 +51,7 @@ const BottomTabNav = () => {
 			/>
 			<Tab.Screen
 				name={"Journal"}
-				component={Home}
+				component={LenderBorrowerNavScreen}
 				options={{
 					tabBarIcon: ({ color }) => (
 						<FontAwesome5
@@ -59,6 +60,7 @@ const BottomTabNav = () => {
 							color={colors.secondary}
 						/>
 					),
+					headerShown: false,
 				}}
 			/>
 			<Tab.Screen

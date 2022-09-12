@@ -6,9 +6,10 @@ import {
 	Dimensions,
 	Pressable,
 	TouchableOpacity,
+	Alert,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { colors } from "../../modal/color";
 import HeaderForDesktop from "../../components/headerForDesktop";
 import MenuDetailsForDesktop from "../../components/menuDetailsForDesktop";
@@ -30,6 +31,7 @@ const PostDetails = () => {
 	const substrEmail = lenderUserEmail.substr(0, lenderUserEmail.indexOf("@"));
 	const [menuToggle, setMenuToggle] = useState(false);
 	const [userID, setUserID] = useState("");
+	const [postSuccess, setPostSuccess] = useState("");
 
 	Auth.currentAuthenticatedUser()
 		.then((user) => {
@@ -41,6 +43,19 @@ const PostDetails = () => {
 			console.log(err);
 			throw err;
 		});
+
+	useEffect(() => {
+		if (postSuccess !== "") {
+			Alert.alert("Success", postSuccess, [
+				{
+					text: "OK",
+					onPress: () => {
+						navigation.navigate("Home", { screen: "Explore" });
+					},
+				},
+			]);
+		}
+	}, [postSuccess]);
 
 	const orderToDB = async () => {
 		const postData = {
@@ -57,6 +72,7 @@ const PostDetails = () => {
 			variables: { input: postData },
 			authMode: "AMAZON_COGNITO_USER_POOLS",
 		});
+		setPostSuccess("Your order has been placed successfully.");
 	};
 	return (
 		<View style={{ flex: 1, position: "relative" }}>
