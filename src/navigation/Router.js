@@ -1,5 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import CategorySearch from "../components/categorySearch";
+import LocationSearch from "../components/locationSearch";
 import { colors } from "../modal/color";
 import PostDetails from "../screens/postDetails";
 import SelectCategoryScreen from "../screens/selectCategory";
@@ -60,6 +62,16 @@ const Route = () => {
 				<Stack.Screen
 					name="SelectLocation"
 					component={SelectLocationScreen}
+					options={{ headerShown: false }}
+				/>
+				<Stack.Screen
+					name="LocationSearch"
+					component={LocationSearch}
+					options={{ headerShown: false }}
+				/>
+				<Stack.Screen
+					name="CategorySearch"
+					component={CategorySearch}
 					options={{ headerShown: false }}
 				/>
 			</Stack.Navigator>

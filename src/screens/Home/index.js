@@ -8,8 +8,25 @@ import HeaderForDesktop from "../../components/headerForDesktop";
 import { colors } from "../../modal/color";
 import CategoryForDesktop from "../../components/categoryForDesktop";
 import MenuDetailsForDesktop from "../../components/menuDetailsForDesktop";
+import { useRoute } from "@react-navigation/native";
 
 const Home = () => {
+	const route = useRoute();
+	const [searchText, setSearchText] = useState("");
+	useEffect(() => {
+		if (searchText !== "") {
+			alert(searchText);
+		}
+	}, [searchText]);
+	useEffect(() => {
+		if (!route.params) {
+			console.log("Params not set");
+		} else if (route.params.locID !== undefined) {
+			alert(route.params.locID);
+		} else if (route.params.catID !== undefined) {
+			alert(route.params.catID);
+		}
+	}, [route.params]);
 	const windowWidth = Number(Dimensions.get("window").width);
 	const [newItems, setNewItems] = useState([]);
 	const [menuToggle, setMenuToggle] = useState(false);
@@ -32,7 +49,7 @@ const Home = () => {
 
 	return (
 		<>
-			<HeaderForMobile />
+			<HeaderForMobile setSearchText={setSearchText} />
 			<HeaderForDesktop menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
 			<View
 				style={{

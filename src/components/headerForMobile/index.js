@@ -1,11 +1,16 @@
-import { Text, View, TextInput, Dimensions } from "react-native";
+import { Text, View, TextInput, Dimensions, Pressable } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { colors } from "../../modal/color";
 import styles from "./styles.js";
+import { useNavigation } from "@react-navigation/native";
 
-const HeaderForMobile = () => {
+const HeaderForMobile = (props) => {
+	const navigation = useNavigation();
 	const windowWidth = Number(Dimensions.get("window").width);
+	function onSearch(e) {
+		props.setSearchText(e);
+	}
 
 	return (
 		<>
@@ -21,15 +26,26 @@ const HeaderForMobile = () => {
 						placeholder="Search in Rent.com"
 						style={styles.searchPlaceholder}
 						multiline={false}
+						onSubmitEditing={(event) => onSearch(event.nativeEvent.text)}
 					/>
 				</View>
 				<View style={styles.locationCatSearchWrap}>
-					<View style={styles.locationSearchWrap}>
+					<Pressable
+						onPress={() => {
+							navigation.navigate("LocationSearch");
+						}}
+						style={styles.locationSearchWrap}
+					>
 						<MaterialIcons name="location-on" size={20} color={colors.black} />
 						<Text>location</Text>
 						<Text style={styles.locationSearchText}>Belfast</Text>
-					</View>
-					<View style={styles.catSearchWrap}>
+					</Pressable>
+					<Pressable
+						onPress={() => {
+							navigation.navigate("CategorySearch");
+						}}
+						style={styles.catSearchWrap}
+					>
 						<MaterialIcons
 							name="settings-input-component"
 							size={20}
@@ -37,7 +53,7 @@ const HeaderForMobile = () => {
 						/>
 						<Text style={styles.catText}>Category</Text>
 						<Text style={styles.catDynText}>Vehicle</Text>
-					</View>
+					</Pressable>
 				</View>
 			</View>
 		</>
