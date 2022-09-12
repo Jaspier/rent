@@ -13,6 +13,14 @@ import { useRoute } from "@react-navigation/native";
 const Home = () => {
 	const route = useRoute();
 	const [searchText, setSearchText] = useState("");
+	const [searchByLocation, setSearchByLocation] = useState({
+		locationName: "Belfast",
+		locationId: "",
+	});
+	const [searchByCategory, setSearchByCategory] = useState({
+		catName: "All",
+		catId: "",
+	});
 	useEffect(() => {
 		if (searchText !== "") {
 			alert(searchText);
@@ -22,9 +30,15 @@ const Home = () => {
 		if (!route.params) {
 			console.log("Params not set");
 		} else if (route.params.locID !== undefined) {
-			alert(route.params.locID);
+			setSearchByLocation({
+				locationName: route.params.locName,
+				locationId: route.params.locID,
+			});
 		} else if (route.params.catID !== undefined) {
-			alert(route.params.catID);
+			setSearchByCategory({
+				catName: route.params.catName,
+				catId: route.params.catID,
+			});
 		}
 	}, [route.params]);
 	const windowWidth = Number(Dimensions.get("window").width);
@@ -49,7 +63,11 @@ const Home = () => {
 
 	return (
 		<>
-			<HeaderForMobile setSearchText={setSearchText} />
+			<HeaderForMobile
+				setSearchText={setSearchText}
+				searchByCategory={searchByCategory}
+				searchByLocation={searchByLocation}
+			/>
 			<HeaderForDesktop menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
 			<View
 				style={{

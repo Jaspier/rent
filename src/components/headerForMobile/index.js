@@ -37,8 +37,10 @@ const HeaderForMobile = (props) => {
 						style={styles.locationSearchWrap}
 					>
 						<MaterialIcons name="location-on" size={20} color={colors.black} />
-						<Text>location</Text>
-						<Text style={styles.locationSearchText}>Belfast</Text>
+						<Text>Location</Text>
+						<Text style={styles.locationSearchText}>
+							{props.searchByLocation.locationName}
+						</Text>
 					</Pressable>
 					<Pressable
 						onPress={() => {
@@ -52,7 +54,9 @@ const HeaderForMobile = (props) => {
 							color={colors.black}
 						/>
 						<Text style={styles.catText}>Category</Text>
-						<Text style={styles.catDynText}>Vehicle</Text>
+						<Text style={styles.catDynText}>
+							{props.searchByCategory.catName}
+						</Text>
 					</Pressable>
 				</View>
 			</View>
