@@ -4,7 +4,6 @@ import {
 	Image,
 	ScrollView,
 	Dimensions,
-	Pressable,
 	TouchableOpacity,
 	Alert,
 } from "react-native";

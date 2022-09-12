@@ -11,7 +11,7 @@ import {
 	Platform,
 } from "react-native";
 import { withAuthenticator } from "aws-amplify-react-native";
-import { Auth, Storage, API, graphqlOperation } from "aws-amplify";
+import { Auth, Storage, API } from "aws-amplify";
 import { AntDesign } from "@expo/vector-icons";
 import { colors } from "../../modal/color";
 import styles from "./styles";

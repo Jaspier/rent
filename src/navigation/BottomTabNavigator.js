@@ -1,10 +1,12 @@
 import Home from "../screens/Home";
-import { Platform, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 import { colors } from "../modal/color";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { FontAwesome, FontAwesome5 } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
+import {
+	FontAwesome,
+	FontAwesome5,
+	MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import Listing from "../screens/Listing";
 import LenderBorrowerNavScreen from "./LenderBorrowerNav";
 

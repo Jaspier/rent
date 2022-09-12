@@ -1,19 +1,6 @@
-import React, { useState } from "react";
-import {
-	Text,
-	ScrollView,
-	View,
-	TouchableOpacity,
-	Dimensions,
-	Pressable,
-} from "react-native";
-import {
-	Ionicons,
-	MaterialIcons,
-	FontAwesome,
-	Entypo,
-	AntDesign,
-} from "@expo/vector-icons";
+import React from "react";
+import { Text, View, Dimensions, Pressable } from "react-native";
+import { FontAwesome, AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { colors } from "../../modal/color";
 
@@ -53,8 +40,12 @@ const MenuDetailsForDesktop = (props) => {
 							marginBottom: 10,
 						}}
 					>
-						<Entypo name="chat" size={25} color={colors.white} />
-						<Text style={{ color: colors.white, marginLeft: 10 }}>Chat</Text>
+						<FontAwesome5
+							name="journal-whills"
+							size={24}
+							color={colors.white}
+						/>
+						<Text style={{ color: colors.white, marginLeft: 10 }}>Journal</Text>
 					</Pressable>
 					<Pressable
 						style={{

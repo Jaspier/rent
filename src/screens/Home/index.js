@@ -3,7 +3,7 @@ import PostItems from "../../components/postItems";
 import HeaderForMobile from "../../components/headerForMobile";
 import { getListingByCreatedAt } from "../../graphql/queries";
 import { API } from "aws-amplify";
-import { FlatList, View, Text, Dimensions } from "react-native";
+import { FlatList, View, Dimensions } from "react-native";
 import HeaderForDesktop from "../../components/headerForDesktop";
 import { colors } from "../../modal/color";
 import CategoryForDesktop from "../../components/categoryForDesktop";
