@@ -51,7 +51,7 @@ const Listing = () => {
 			allowsMultipleSelection: true,
 		});
 
-		console.log(result);
+		// console.log(result);
 
 		if (!result.cancelled) {
 			setImageData(result.selected);
