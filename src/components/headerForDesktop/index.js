@@ -15,7 +15,9 @@ import { useNavigation } from "@react-navigation/native";
 const HeaderForDesktop = (props) => {
 	const navigation = useNavigation();
 	const windowWidth = Number(Dimensions.get("window").width);
-
+	function onSearch(e) {
+		props.setSearchText(e);
+	}
 	return (
 		<>
 			<View
@@ -85,6 +87,7 @@ const HeaderForDesktop = (props) => {
 									borderWidth: 2,
 									borderColor: colors.secondary,
 								}}
+								onSubmitEditing={(event) => onSearch(event.nativeEvent.text)}
 							/>
 							<Pressable>
 								<Text

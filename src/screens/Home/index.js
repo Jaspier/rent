@@ -9,23 +9,24 @@ import { colors } from "../../modal/color";
 import CategoryForDesktop from "../../components/categoryForDesktop";
 import MenuDetailsForDesktop from "../../components/menuDetailsForDesktop";
 import { useRoute } from "@react-navigation/native";
+import * as search from "../../utilities/search";
 
 const Home = () => {
 	const route = useRoute();
 	const [searchText, setSearchText] = useState("");
 	const [searchByLocation, setSearchByLocation] = useState({
-		locationName: "Belfast",
+		locationName: "All",
 		locationId: "",
 	});
 	const [searchByCategory, setSearchByCategory] = useState({
 		catName: "All",
 		catId: "",
 	});
-	useEffect(() => {
-		if (searchText !== "") {
-			alert(searchText);
-		}
-	}, [searchText]);
+	// useEffect(() => {
+	// 	if (searchText !== "") {
+	// 		alert(searchText);
+	// 	}
+	// }, [searchText]);
 	useEffect(() => {
 		if (!route.params) {
 			console.log("Params not set");
@@ -44,6 +45,99 @@ const Home = () => {
 	const windowWidth = Number(Dimensions.get("window").width);
 	const [newItems, setNewItems] = useState([]);
 	const [menuToggle, setMenuToggle] = useState(false);
+
+	useEffect(() => {
+		if (searchByLocation.locationId !== "") {
+			console.log("location id changed to:", searchByLocation);
+			if (searchByCategory.catId == "") {
+				if (searchText !== "") {
+					const result = search.searchWithLocationAndText(
+						searchText,
+						searchByLocation
+					);
+					result.then((res) => setNewItems(res));
+				} else {
+					const result = search.searchWithLocation(
+						searchByCategory,
+						searchByLocation
+					);
+					result.then((res) => setNewItems(res));
+				}
+			} else {
+				if (searchText !== "") {
+					const result = search.searchWithLocationAndTextAndCategory(
+						searchText,
+						searchByCategory,
+						searchByLocation
+					);
+					result.then((res) => setNewItems(res));
+				} else {
+					const result = search.searchWithLocationAndCategory(
+						searchByCategory,
+						searchByLocation
+					);
+					result.then((res) => setNewItems(res));
+				}
+			}
+		} else {
+			console.log("location id has not changed", searchByLocation);
+		}
+	}, [searchByLocation]);
+	useEffect(() => {
+		if (searchText !== "") {
+			if (searchByCategory.catId == "") {
+				console.log("searchText id changed to:", searchText);
+				if (searchByLocation.locationId !== "") {
+					const result = search.searchWithLocationAndText(searchText);
+					result.then((res) => setNewItems(res));
+				} else {
+					const result = search.searchWithText(searchText);
+					result.then((res) => setNewItems(res));
+				}
+			} else {
+				console.log("searchText id changed to:", searchText);
+				if (searchByLocation.locationId !== "") {
+					const result = search.searchWithLocationAndTextAndCategory(
+						searchText,
+						searchByCategory
+					);
+					result.then((res) => setNewItems(res));
+				} else {
+					const result = search.searchWithTextAndCategory(
+						searchText,
+						searchByCategory
+					);
+					result.then((res) => setNewItems(res));
+				}
+			}
+		} else {
+			console.log("searchText id has not changed", searchText);
+		}
+	}, [searchText]);
+	useEffect(() => {
+		if (searchByCategory.catId !== "") {
+			console.log("searchText id changed to:", searchText);
+			if (searchByLocation.locationId !== "") {
+				const result = search.searchWithLocationAndTextAndCategory(
+					searchText,
+					searchByCategory
+				);
+				result.then((res) => setNewItems(res));
+			} else if (searchText !== "") {
+				const result = search.searchWithTextAndCategory(
+					searchText,
+					searchByCategory
+				);
+				result.then((res) => setNewItems(res));
+			} else {
+				const result = search.searchByCatFunc(searchByCategory);
+				result.then((res) => setNewItems(res));
+			}
+		} else {
+			console.log("searchText id has not changed", searchText);
+		}
+	}, [searchByCategory]);
+
 	const fetchAll = async () => {
 		try {
 			const itemListByCommonID = await API.graphql({
@@ -59,7 +153,7 @@ const Home = () => {
 
 	useEffect(() => {
 		fetchAll();
-	});
+	}, []);
 
 	return (
 		<>
@@ -68,7 +162,13 @@ const Home = () => {
 				searchByCategory={searchByCategory}
 				searchByLocation={searchByLocation}
 			/>
-			<HeaderForDesktop menuToggle={menuToggle} setMenuToggle={setMenuToggle} />
+			<HeaderForDesktop
+				menuToggle={menuToggle}
+				setMenuToggle={setMenuToggle}
+				setSearchText={setSearchText}
+				searchByCategory={searchByCategory}
+				searchByLocation={searchByLocation}
+			/>
 			<View
 				style={{
 					flex: 1,

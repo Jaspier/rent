@@ -34,7 +34,6 @@ const PostDetails = () => {
 
 	Auth.currentAuthenticatedUser()
 		.then((user) => {
-			// console.log(user.attributes.sub);
 			setUserID(user.attributes.sub);
 			setUserEmail(user.attributes.email);
 		})

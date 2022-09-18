@@ -9,7 +9,6 @@ const LenderScreen = () => {
 	const [userID, setUserID] = useState("");
 	Auth.currentAuthenticatedUser()
 		.then((user) => {
-			// console.log(user.attributes.sub);
 			setUserID(user.attributes.sub);
 		})
 		.catch((err) => {
